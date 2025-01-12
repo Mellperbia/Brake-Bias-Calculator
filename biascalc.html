@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brake Bias Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            margin: 0;
+            padding: 24px;
+            background-color: #f4f4f9;
+            color: #333;
+            position: relative;
+        }
+        .calculators-container {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+            position: relative;
+        }
+        .calculator {
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .calculator-section {
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #4a4a4a;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #007BFF;
+            border-radius: 3px;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .checkbox-group {
+            
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px auto;
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .results {
+            margin-top: 10px;
+            line-height: 2;
+        }
+        .comparison {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            line-height: 2; /* Added line spacing */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="calculators-container">
+        <!-- Calculator 1 -->
+        <div class="calculator">
+            <div class="calculator-section">
+                <h1 id="frontBrakeTitle">Front Brake Calculator (Setup 1)</h1>
+                <div style="margin-bottom: 92px;"></div>
+
+                <div class="form-group">
+                    <label for="frontRotorDiameter1">Rotor Diameter (mm):</label>
+                    <input type="number" id="frontRotorDiameter1" placeholder="e.g., 380" required>
+                </div>
+                <div class="form-group">
+                    <label for="frontPiston1Diameter1">Piston 1 Diameter (mm):</label>
+                    <input type="number" id="frontPiston1Diameter1" placeholder="e.g., 30" required>
+                </div>
+                <div class="form-group">
+                    <label for="frontPiston2Diameter1">Piston 2 Diameter (mm) (Optional):</label>
+                    <input type="number" id="frontPiston2Diameter1" placeholder="e.g., 32">
+                </div>
+                <div class="form-group">
+                    <label for="frontPiston3Diameter1">Piston 3 Diameter (mm) (Optional):</label>
+                    <input type="number" id="frontPiston3Diameter1" placeholder="e.g., 34">
+                </div>
+                <div class="form-group">
+                    <label for="frontPadDepth1">Brake Pad Depth (mm):</label>
+                    <input type="number" id="frontPadDepth1" placeholder="e.g., 70" required>
+                </div>
+                <div class="form-group">
+                    <label for="frontFrictionCoefficient1">Friction Coefficient (Default: 0.5):</label>
+                    <input type="number" id="frontFrictionCoefficient1" step="0.01" placeholder="e.g., 0.4">
+                </div>
+            </div>
+
+            <div class="calculator-section">
+                <h1>Rear Brake Calculator (Setup 1)</h1>
+                <div style="margin-bottom: 85px;"></div>
+                <div class="form-group">
+                    <label for="rearRotorDiameter1">Rotor Diameter (mm):</label>
+                    <input type="number" id="rearRotorDiameter1" placeholder="e.g., 370" required>
+                </div>
+                <div class="form-group">
+                    <label for="rearPiston1Diameter1">Piston 1 Diameter (mm):</label>
+                    <input type="number" id="rearPiston1Diameter1" placeholder="e.g., 28" required>
+                </div>
+                <div class="form-group">
+                    <label for="rearPiston2Diameter1">Piston 2 Diameter (mm) (Optional):</label>
+                    <input type="number" id="rearPiston2Diameter1" placeholder="e.g., 30">
+                </div>
+                <div class="form-group">
+                    <label for="rearPiston3Diameter1">Piston 3 Diameter (mm) (Optional):</label>
+                    <input type="number" id="rearPiston3Diameter1" placeholder="e.g., 32">
+                </div>
+                <div class="form-group">
+                    <label for="rearPadDepth1">Brake Pad Depth (mm):</label>
+                    <input type="number" id="rearPadDepth1" placeholder="e.g., 68" required>
+                </div>
+                <div class="form-group">
+                    <label for="rearFrictionCoefficient1">Friction Coefficient (Default: 0.5):</label>
+                    <input type="number" id="rearFrictionCoefficient1" step="0.01" placeholder="e.g., 0.38">
+                </div>
+            </div>
+
+            <button onclick="calculateBrakeBias(1)">Calculate Bias (Setup 1)</button>
+            <div class="results" style="width: 100%; text-align: center;">
+                <div id="biasRatio1">Bias Ratio (Front : Rear): N/A</div>
+                <div id="frontBias1">Front Bias Percentage: N/A</div>
+                <div id="rearBias1">Rear Bias Percentage: N/A</div>
+            </div>
+        </div>
+
+        <!-- Calculator 2 -->
+        <div class="calculator">
+            <div class="calculator-section">
+                <h1>Front Brake Calculator (Setup 2)</h1>
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="useFrontSetup1" onclick="applyPreviousSetup('front')">
+                    Use Front Setup 1 in Setup 2
+                </label>
+                </label>
+            </div>
+            <div class="calculator-section">
+                <div class="form-group">
+                    <label for="frontRotorDiameter2">Rotor Diameter (mm):</label>
+                    <input type="number" id="frontRotorDiameter2" placeholder="e.g., 380" required>
+                </div>
+                <div class="form-group">
+                    <label for="frontPiston1Diameter2">Piston 1 Diameter (mm):</label>
+                    <input type="number" id="frontPiston1Diameter2" placeholder="e.g., 30" required>
+                </div>
+                <div class="form-group">
+                    <label for="frontPiston2Diameter2">Piston 2 Diameter (mm) (Optional):</label>
+                    <input type="number" id="frontPiston2Diameter2" placeholder="e.g., 32">
+                </div>
+                <div class="form-group">
+                    <label for="frontPiston3Diameter2">Piston 3 Diameter (mm) (Optional):</label>
+                    <input type="number" id="frontPiston3Diameter2" placeholder="e.g., 34">
+                </div>
+                <div class="form-group">
+                    <label for="frontPadDepth2">Brake Pad Depth (mm):</label>
+                    <input type="number" id="frontPadDepth2" placeholder="e.g., 70" required>
+                </div>
+                <div class="form-group">
+                    <label for="frontFrictionCoefficient2">Friction Coefficient (Default: 0.5):</label>
+                    <input type="number" id="frontFrictionCoefficient2" step="0.01" placeholder="e.g., 0.4">
+                </div>
+            </div>
+
+            <div class="calculator-section">
+                <h1>Rear Brake Calculator (Setup 2)</h1>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="useRearSetup1" onclick="applyPreviousSetup('rear')">
+                        Use Rear Setup 1 in Setup 2
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="rearRotorDiameter2">Rotor Diameter (mm):</label>
+                    <input type="number" id="rearRotorDiameter2" placeholder="e.g., 370" required>
+                </div>
+                <div class="form-group">
+                    <label for="rearPiston1Diameter2">Piston 1 Diameter (mm):</label>
+                    <input type="number" id="rearPiston1Diameter2" placeholder="e.g., 28" required>
+                </div>
+                <div class="form-group">
+                    <label for="rearPiston2Diameter2">Piston 2 Diameter (mm) (Optional):</label>
+                    <input type="number" id="rearPiston2Diameter2" placeholder="e.g., 30">
+                </div>
+                <div class="form-group">
+                    <label for="rearPiston3Diameter2">Piston 3 Diameter (mm) (Optional):</label>
+                    <input type="number" id="rearPiston3Diameter2" placeholder="e.g., 32">
+                </div>
+                <div class="form-group">
+                    <label for="rearPadDepth2">Brake Pad Depth (mm):</label>
+                    <input type="number" id="rearPadDepth2" placeholder="e.g., 68" required>
+                </div>
+                <div class="form-group">
+                    <label for="rearFrictionCoefficient2">Friction Coefficient (Default: 0.5):</label>
+                    <input type="number" id="rearFrictionCoefficient2" step="0.01" placeholder="e.g., 0.38">
+                </div>
+            </div>
+
+            <button onclick="calculateBrakeBias(2)">Calculate Bias (Setup 2)</button>
+            <div class="results" style="width: 100%; text-align: center;">
+                <div id="biasRatio2">Bias Ratio (Front : Rear): N/A</div>
+                <div id="frontBias2">Front Bias Percentage: N/A</div>
+                <div id="rearBias2">Rear Bias Percentage: N/A</div>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="comparison">
+            <h1>Comparison Results</h1>
+            <div id="compareBiasRatio">Bias Ratio Difference: N/A</div>
+            <div id="compareFrontBias">Front Bias Difference: N/A</div>
+            <div id="compareRearBias">Rear Bias Difference: N/A</div>
+            <button onclick="compareResults()">Compare Results</button>
+        </div>
+    </div>
+
+    <script>
+        function calculatePistonArea(piston1, piston2 = 0, piston3 = 0) {
+            const area1 = Math.PI * Math.pow(piston1 / 2, 2);
+            const area2 = piston2 > 0 ? Math.PI * Math.pow(piston2 / 2, 2) : 0;
+            const area3 = piston3 > 0 ? Math.PI * Math.pow(piston3 / 2, 2) : 0;
+            return 2 * (area1 + area2 + area3);
+        }
+
+        function calculateBrakeBias(setup) {
+            const prefix = setup === 1 ? "1" : "2";
+
+            const frontRotorDiameter = parseFloat(document.getElementById(`frontRotorDiameter${prefix}`).value);
+            const frontPiston1Diameter = parseFloat(document.getElementById(`frontPiston1Diameter${prefix}`).value);
+            const frontPiston2Diameter = parseFloat(document.getElementById(`frontPiston2Diameter${prefix}`).value) || 0;
+            const frontPiston3Diameter = parseFloat(document.getElementById(`frontPiston3Diameter${prefix}`).value) || 0;
+            const frontPadDepth = parseFloat(document.getElementById(`frontPadDepth${prefix}`).value);
+            const frontFrictionCoefficient = parseFloat(document.getElementById(`frontFrictionCoefficient${prefix}`).value) || 0.5;
+
+            const rearRotorDiameter = parseFloat(document.getElementById(`rearRotorDiameter${prefix}`).value);
+            const rearPiston1Diameter = parseFloat(document.getElementById(`rearPiston1Diameter${prefix}`).value);
+            const rearPiston2Diameter = parseFloat(document.getElementById(`rearPiston2Diameter${prefix}`).value) || 0;
+            const rearPiston3Diameter = parseFloat(document.getElementById(`rearPiston3Diameter${prefix}`).value) || 0;
+            const rearPadDepth = parseFloat(document.getElementById(`rearPadDepth${prefix}`).value);
+            const rearFrictionCoefficient = parseFloat(document.getElementById(`rearFrictionCoefficient${prefix}`).value) || 0.5;
+
+            if (isNaN(frontRotorDiameter) || isNaN(frontPiston1Diameter) || isNaN(frontPadDepth) ||
+                isNaN(rearRotorDiameter) || isNaN(rearPiston1Diameter) || isNaN(rearPadDepth)) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            const frontEffectiveRadius = frontRotorDiameter / 2 - frontPadDepth / 2;
+            const rearEffectiveRadius = rearRotorDiameter / 2 - rearPadDepth / 2;
+
+            const frontPistonArea = calculatePistonArea(frontPiston1Diameter, frontPiston2Diameter, frontPiston3Diameter);
+            const rearPistonArea = calculatePistonArea(rearPiston1Diameter, rearPiston2Diameter, rearPiston3Diameter);
+
+            const frontBrakeForce = frontPistonArea * frontEffectiveRadius * frontFrictionCoefficient;
+            const rearBrakeForce = rearPistonArea * rearEffectiveRadius * rearFrictionCoefficient;
+
+            const biasRatio = frontBrakeForce / rearBrakeForce;
+            const frontBias = (frontBrakeForce / (frontBrakeForce + rearBrakeForce)) * 100;
+            const rearBias = 100 - frontBias;
+
+            document.getElementById(`biasRatio${prefix}`).innerText = `Bias Ratio (Front : Rear): ${biasRatio.toFixed(2)}`;
+            document.getElementById(`frontBias${prefix}`).innerText = `Front Bias Percentage: ${frontBias.toFixed(2)}%`;
+            document.getElementById(`rearBias${prefix}`).innerText = `Rear Bias Percentage: ${rearBias.toFixed(2)}%`;
+        }
+
+        function applyPreviousSetup(type) {
+            const isFront = type === 'front';
+            const checkBoxId = isFront ? 'useFrontSetup1' : 'useRearSetup1';
+            const sourcePrefix = isFront ? 'front' : 'rear';
+            const targetPrefix = isFront ? 'front' : 'rear';
+
+            if (document.getElementById(checkBoxId).checked) {
+                document.getElementById(`${targetPrefix}RotorDiameter2`).value = document.getElementById(`${sourcePrefix}RotorDiameter1`).value;
+                document.getElementById(`${targetPrefix}Piston1Diameter2`).value = document.getElementById(`${sourcePrefix}Piston1Diameter1`).value;
+                document.getElementById(`${targetPrefix}Piston2Diameter2`).value = document.getElementById(`${sourcePrefix}Piston2Diameter1`).value;
+                document.getElementById(`${targetPrefix}Piston3Diameter2`).value = document.getElementById(`${sourcePrefix}Piston3Diameter1`).value;
+                document.getElementById(`${targetPrefix}PadDepth2`).value = document.getElementById(`${sourcePrefix}PadDepth1`).value;
+                document.getElementById(`${targetPrefix}FrictionCoefficient2`).value = document.getElementById(`${sourcePrefix}FrictionCoefficient1`).value;
+            } else {
+                document.getElementById(`${targetPrefix}RotorDiameter2`).value = '';
+                document.getElementById(`${targetPrefix}Piston1Diameter2`).value = '';
+                document.getElementById(`${targetPrefix}Piston2Diameter2`).value = '';
+                document.getElementById(`${targetPrefix}Piston3Diameter2`).value = '';
+                document.getElementById(`${targetPrefix}PadDepth2`).value = '';
+                document.getElementById(`${targetPrefix}FrictionCoefficient2`).value = '';
+            }
+        }
+
+        function compareResults() {
+            const biasRatio1 = parseFloat(document.getElementById("biasRatio1").innerText.split(": ")[1]) || 0;
+            const biasRatio2 = parseFloat(document.getElementById("biasRatio2").innerText.split(": ")[1]) || 0;
+
+            const frontBias1 = parseFloat(document.getElementById("frontBias1").innerText.split(": ")[1]) || 0;
+            const frontBias2 = parseFloat(document.getElementById("frontBias2").innerText.split(": ")[1]) || 0;
+
+            const rearBias1 = parseFloat(document.getElementById("rearBias1").innerText.split(": ")[1]) || 0;
+            const rearBias2 = parseFloat(document.getElementById("rearBias2").innerText.split(": ")[1]) || 0;
+
+            const biasDifference = Math.abs(biasRatio1 - biasRatio2).toFixed(2);
+            const frontBiasDifference = Math.abs(frontBias1 - frontBias2).toFixed(2);
+            const rearBiasDifference = Math.abs(rearBias1 - rearBias2).toFixed(2);
+
+            document.getElementById("compareBiasRatio").innerText = `Bias Ratio Difference: ${biasDifference}`;
+            document.getElementById("compareFrontBias").innerText = `Front Bias Difference: ${frontBiasDifference}%`;
+            document.getElementById("compareRearBias").innerText = `Rear Bias Difference: ${rearBiasDifference}%`;
+        }
+    </script>
+    
+    
+</body>
+</html>
+
+
